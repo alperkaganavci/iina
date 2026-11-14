@@ -181,30 +181,6 @@ class SettingsPageGeneral: SettingsPage {
 }
 
 
-fileprivate extension Preference {
-  enum SparkleInterval: Int, InitializingFromKey, CaseIterable {
-    case hourly = 3600
-    case daily = 86400
-    case weekly = 604800
-    case monthly = 2629800
-
-    static var defaultValue = SparkleInterval.daily
-
-    init?(key: Preference.Key) {
-      self.init(rawValue: Preference.integer(for: key))
-    }
-
-    var description: String {
-      switch self {
-      case .hourly: "hourly"
-      case .daily: "daily"
-      case .weekly: "weekly"
-      case .monthly: "monthly"
-      }
-    }
-  }
-}
-
 extension Preference.ScreenshotFormat: Comparable {
   static func <(lhs: Preference.ScreenshotFormat, rhs: Preference.ScreenshotFormat) -> Bool {
     String(describing: lhs) < String(describing: rhs)

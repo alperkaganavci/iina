@@ -72,10 +72,6 @@
 	</dict>
 	<key>NSPrefersDisplaySafeAreaCompatibilityMode</key>
 	<false/>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
-	<key>SUPublicEDKey</key>
-	<string>UpwCRYfYOg0OGgQHY6RUdrV29yPcdkvxGlEfq46r6a0=</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -129,9 +125,5 @@
 	<string>$(SDK_VERSION)</string>
 	<key>com.alperkaganavci.iina-raw.build.xcode</key>
 	<string>$(XCODE_VERSION_ACTUAL)</string>
-	<key>SUEnableAutomaticChecks</key>
-	<false/>
-	<key>SUAutomaticallyUpdate</key>
-	<false/>
 </dict>
 </plist>

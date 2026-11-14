@@ -32,6 +32,7 @@ class AboutWindowController: NSWindowController {
   @IBOutlet weak var iinaLabel: NSTextField! {
     didSet {
       iinaLabel.font = NSFont.systemFont(ofSize: 24, weight: .light)
+      iinaLabel.stringValue = "IINA RAW"
     }
   }
   @IBOutlet weak var versionLabel: NSTextField!

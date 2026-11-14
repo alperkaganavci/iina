@@ -8,7 +8,6 @@
 
 import Cocoa
 import MediaPlayer
-import Sparkle
 
 let IINA_ENABLE_PLUGIN_SYSTEM = true
 
@@ -21,7 +20,7 @@ fileprivate let AlternativeMenuItemTag = 1
 
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate {
 
   /// The `AppDelegate` singleton object.
   static var shared: AppDelegate { NSApp.delegate as! AppDelegate }
@@ -189,20 +188,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     }
   }
 
-  // MARK: - SPUUpdaterDelegate
-  @IBOutlet var updaterController: SPUStandardUpdaterController!
-
-  // IINA RAW never checks for or installs updates: there is no feed URL, and Sparkle is told
-  // to refuse every update check.
-  func feedURLString(for updater: SPUUpdater) -> String? {
-    return nil
-  }
-
-  func updater(_ updater: SPUUpdater, mayPerform updateCheck: SPUUpdateCheck) throws {
-    throw NSError(domain: "com.alperkaganavci.iina-raw.updates", code: 1, userInfo: [
-      NSLocalizedDescriptionKey: "IINA RAW does not check for updates."])
-  }
-
   // MARK: - App Delegate
 
   func applicationWillFinishLaunching(_ notification: Notification) {
@@ -260,15 +245,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     LegacyMigration.shared.migrateLegacyPreferences()
     LegacyMigration.shared.migrateToneMappingTargetPeak()
 
-    // guide window
-    switch InfoDictionary.shared.buildType {
-    case .release, .beta:
-      if FirstRunManager.isFirstRun(for: .init("firstLaunchAfter\(version)")) {
-        guideWindow.show(pages: [.highlights])
-      }
-    default:
-      break
-    }
+    // IINA RAW: no guide window on first launch (its highlights page loads from iina.io).
 
     // Hide Window > "Enter Full Screen" menu item, because this is already present in the Video menu
     UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
@@ -371,9 +348,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     if !isReady {
       getReady()
     }
-
-    // see https://sparkle-project.org/documentation/api-reference/Classes/SPUUpdater.html#/c:objc(cs)SPUUpdater(im)clearFeedURLFromUserDefaults
-    updaterController.updater.clearFeedURLFromUserDefaults()
 
     // show alpha in color panels
     NSColorPanel.shared.showsAlpha = true

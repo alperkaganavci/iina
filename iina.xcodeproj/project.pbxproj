@@ -137,7 +137,6 @@
 		51E63DFD29CFB04C008AFC20 /* PlaySliderLoopKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E63DFC29CFB04B008AFC20 /* PlaySliderLoopKnob.swift */; };
 		51EDB4722E85EE10007E5018 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EDB4712E85EE10007E5018 /* DisplayController.swift */; };
 		51F7974728C7E00200812D0D /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F7974628C7E00200812D0D /* Lock.swift */; };
-		6100FF2B1EDF9806002CF0FB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6100FF2A1EDF9806002CF0FB /* dsa_pub.pem */; };
 		8400D5C41E17C6D2006785F5 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400D5C21E17C6D2006785F5 /* AboutWindowController.swift */; };
 		8400D5C61E1AB2F1006785F5 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8400D5C81E1AB2F1006785F5 /* MainWindowController.xib */; };
 		8400D5D21E1AB312006785F5 /* InspectorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8400D5D41E1AB312006785F5 /* InspectorWindowController.xib */; };
@@ -257,7 +256,6 @@
 		9E47DAC01E3CFA6D00457420 /* DurationDisplayTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E47DABF1E3CFA6D00457420 /* DurationDisplayTextField.swift */; };
 		B4E446E825CB53920069F06E /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4E446E725CB53920069F06E /* PromiseKit */; };
 		B4E446F725CB54EF0069F06E /* Mustache in Frameworks */ = {isa = PBXBuildFile; productRef = B4E446F625CB54EF0069F06E /* Mustache */; };
-		B4E4470125CE3F930069F06E /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = B4E4470025CE3F930069F06E /* Sparkle */; };
 		C789872F1E34EF170005769F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C78987311E34EF170005769F /* InfoPlist.strings */; };
 		D17504A82918F13E005C3DD0 /* OSCToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17504A72918F13E005C3DD0 /* OSCToolbarButton.swift */; };
 		D17B857B2C94C8B5002A8EDE /* movist-v2-default-input.conf in Copy Configs */ = {isa = PBXBuildFile; fileRef = D1F68E742C6ABC22003D1208 /* movist-v2-default-input.conf */; };
@@ -1126,7 +1124,6 @@
 		5EF9F80121FB438200748374 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5EF9F80321FB43EA00748374 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/FilterPresets.strings"; sourceTree = "<group>"; };
 		5EF9F80421FB448700748374 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/KeyBinding.strings"; sourceTree = "<group>"; };
-		6100FF2A1EDF9806002CF0FB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		649AD3111F11B06D00244738 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		649AD3121F11B06D00244738 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainWindowController.strings; sourceTree = "<group>"; };
 		649AD3161F11B06E00244738 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InspectorWindowController.strings; sourceTree = "<group>"; };
@@ -1887,7 +1884,6 @@
 			files = (
 				496B19921E2968530035AF10 /* PIP.framework in Frameworks */,
 				8403CEA72007CBD400645516 /* MediaPlayer.framework in Frameworks */,
-				B4E4470125CE3F930069F06E /* Sparkle in Frameworks */,
 				8451E6D92604AEFC009A15D7 /* Just in Frameworks */,
 				5196819A29EC963F00B05D55 /* CoreDisplay.framework in Frameworks */,
 				B4E446E825CB53920069F06E /* PromiseKit in Frameworks */,
@@ -2183,7 +2179,6 @@
 				E34C13F33064F7B400096D56 /* iina_beta.icon */,
 				348F33C930650FDA0091E0C1 /* iina_nightly.icon */,
 				E393669923BDD1850070D626 /* IINA.entitlements */,
-				6100FF2A1EDF9806002CF0FB /* dsa_pub.pem */,
 				C78987311E34EF170005769F /* InfoPlist.strings */,
 				84E745D71DFDE8C100588DED /* config */,
 				84EB1EDB1D2F51D3004FA5A1 /* Assets.xcassets */,
@@ -2785,7 +2780,6 @@
 			packageProductDependencies = (
 				B4E446E725CB53920069F06E /* PromiseKit */,
 				B4E446F625CB54EF0069F06E /* Mustache */,
-				B4E4470025CE3F930069F06E /* Sparkle */,
 				8451E6D82604AEFC009A15D7 /* Just */,
 			);
 			productName = mpvx;
@@ -2906,7 +2900,6 @@
 			packageReferences = (
 				B4E446E625CB53920069F06E /* XCRemoteSwiftPackageReference "PromiseKit" */,
 				B4E446F525CB54EF0069F06E /* XCRemoteSwiftPackageReference "GRMustache" */,
-				B4E446FF25CE3F930069F06E /* XCRemoteSwiftPackageReference "Sparkle" */,
 				8451E6D72604AEFC009A15D7 /* XCRemoteSwiftPackageReference "Just" */,
 			);
 			productRefGroup = 84EB1ED71D2F51D3004FA5A1 /* Products */;
@@ -2969,7 +2962,6 @@
 				34F294C02C0B68B300F14962 /* Contribution.rtf in Resources */,
 				8400D5D21E1AB312006785F5 /* InspectorWindowController.xib in Resources */,
 				8400D5ED1E1AB33F006785F5 /* PrefAdvancedViewController.xib in Resources */,
-				6100FF2B1EDF9806002CF0FB /* dsa_pub.pem in Resources */,
 				849581F31F03D55A00D3B359 /* InitialWindowController.strings in Resources */,
 				E34C13F23064ECCB00096D56 /* iina.icon in Resources */,
 				845AC09C1E1AE6C10080B614 /* Localizable.strings in Resources */,
@@ -5092,14 +5084,6 @@
 				minimumVersion = 4.2.0;
 			};
 		};
-		B4E446FF25CE3F930069F06E /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5117,11 +5101,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B4E446F525CB54EF0069F06E /* XCRemoteSwiftPackageReference "GRMustache" */;
 			productName = Mustache;
-		};
-		B4E4470025CE3F930069F06E /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B4E446FF25CE3F930069F06E /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
 		};
 		E38558902A486E060083772D /* Mustache */ = {
 			isa = XCSwiftPackageProductDependency;
