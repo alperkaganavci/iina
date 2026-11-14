@@ -70,6 +70,9 @@ class PrefUtilsViewController: PreferenceViewController, PreferenceWindowEmbedda
 
     let utiChecked = [
       "public.movie": setAsDefaultVideoCheckBox.state == .on,
+      // IINA RAW: the R3D and NEV types do not conform to public.movie (see Info.plist).
+      "com.alperkaganavci.r3d": setAsDefaultVideoCheckBox.state == .on,
+      "com.alperkaganavci.nev": setAsDefaultVideoCheckBox.state == .on,
       "public.audio": setAsDefaultAudioCheckBox.state == .on,
       "public.text": setAsDefaultPlaylistCheckBox.state == .on
     ]
@@ -86,7 +89,7 @@ class PrefUtilsViewController: PreferenceViewController, PreferenceWindowEmbedda
       }
 
       // make sure that `conformsTo` contains a checked UTI type
-      guard utiChecked.map({ (uti, checked) in checked && conformsTo.contains(uti) }).contains(true) else {
+      guard utiChecked.map({ (uti, checked) in checked && (conformsTo.contains(uti) || identifier == uti) }).contains(true) else {
         continue
       }
 

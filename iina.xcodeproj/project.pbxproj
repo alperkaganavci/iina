@@ -383,6 +383,22 @@
 		34AAF901302EAF7800E9835C /* libssl.4.dylib in Copy Dylibs */ = {isa = PBXBuildFile; fileRef = 34AAF900302EAF6500E9835C /* libssl.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		34AAF903302EAF7800E9835C /* libcrypto.4.dylib in Copy Dylibs */ = {isa = PBXBuildFile; fileRef = 34AAF902302EAF6500E9835C /* libcrypto.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		34AAF905302EAF7800E9835C /* libaribcaption.dylib in Copy Dylibs */ = {isa = PBXBuildFile; fileRef = 34AAF904302EAF6500E9835C /* libaribcaption.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		7A710000000000000000000A /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7100000000000000000001 /* ThumbnailProvider.swift */; };
+		7A710000000000000000000B /* RawFrameGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7100000000000000000005 /* RawFrameGrabber.swift */; };
+		7A710000000000000000000C /* rawframe.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A7100000000000000000006 /* rawframe.c */; };
+		7A710000000000000000000D /* libavformat.63.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7A7302EAF6500E9835C /* libavformat.63.dylib */; };
+		7A710000000000000000000E /* libavcodec.63.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7A4302EAF6500E9835C /* libavcodec.63.dylib */; };
+		7A710000000000000000000F /* libavutil.61.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7A8302EAF6500E9835C /* libavutil.61.dylib */; };
+		7A7100000000000000000010 /* libswscale.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7C4302EAF6500E9835C /* libswscale.10.dylib */; };
+		7A7100000000000000000011 /* RawThumbnail.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A7100000000000000000004 /* RawThumbnail.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
+		7A7200000000000000000006 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7200000000000000000001 /* PreviewViewController.swift */; };
+		7A7200000000000000000007 /* RawFrameGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7100000000000000000005 /* RawFrameGrabber.swift */; };
+		7A7200000000000000000008 /* rawframe.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A7100000000000000000006 /* rawframe.c */; };
+		7A7200000000000000000009 /* libavformat.63.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7A7302EAF6500E9835C /* libavformat.63.dylib */; };
+		7A720000000000000000000A /* libavcodec.63.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7A4302EAF6500E9835C /* libavcodec.63.dylib */; };
+		7A720000000000000000000B /* libavutil.61.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7A8302EAF6500E9835C /* libavutil.61.dylib */; };
+		7A720000000000000000000C /* libswscale.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AAF7C4302EAF6500E9835C /* libswscale.10.dylib */; };
+		7A720000000000000000000D /* RawPreview.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A7200000000000000000004 /* RawPreview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -407,6 +423,20 @@
 			remoteGlobalIDString = E38558862A484A2D0083772D;
 			remoteInfo = "iina-plugin";
 		};
+		7A710000000000000000001B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84EB1ECE1D2F51D3004FA5A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A7100000000000000000015;
+			remoteInfo = RawThumbnail;
+		};
+		7A7200000000000000000017 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84EB1ECE1D2F51D3004FA5A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A7200000000000000000011;
+			remoteInfo = RawPreview;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -416,6 +446,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				7A7100000000000000000011 /* RawThumbnail.appex in Embed Foundation Extensions */,
+				7A720000000000000000000D /* RawPreview.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1824,6 +1856,20 @@
 		34AAF900302EAF6500E9835C /* libssl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.4.dylib; path = deps/lib/libssl.4.dylib; sourceTree = "<group>"; };
 		34AAF902302EAF6500E9835C /* libcrypto.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.4.dylib; path = deps/lib/libcrypto.4.dylib; sourceTree = "<group>"; };
 		34AAF904302EAF6500E9835C /* libaribcaption.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libaribcaption.dylib; path = deps/lib/libaribcaption.dylib; sourceTree = "<group>"; };
+		7A7100000000000000000001 /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
+		7A7100000000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A7100000000000000000003 /* RawThumbnail.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RawThumbnail.entitlements; sourceTree = "<group>"; };
+		7A7100000000000000000004 /* RawThumbnail.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RawThumbnail.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A7100000000000000000005 /* RawFrameGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawFrameGrabber.swift; sourceTree = "<group>"; };
+		7A7100000000000000000006 /* rawframe.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rawframe.c; sourceTree = "<group>"; };
+		7A7100000000000000000007 /* rawframe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rawframe.h; sourceTree = "<group>"; };
+		7A7100000000000000000008 /* RawFrameGrabber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RawFrameGrabber-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A7100000000000000000009 /* RawThumbnail.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RawThumbnail.xcconfig; sourceTree = "<group>"; };
+		7A7200000000000000000001 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		7A7200000000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A7200000000000000000003 /* RawPreview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RawPreview.entitlements; sourceTree = "<group>"; };
+		7A7200000000000000000004 /* RawPreview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RawPreview.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A7200000000000000000005 /* RawPreview.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RawPreview.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1908,6 +1954,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A7100000000000000000013 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A710000000000000000000D /* libavformat.63.dylib in Frameworks */,
+				7A710000000000000000000E /* libavcodec.63.dylib in Frameworks */,
+				7A710000000000000000000F /* libavutil.61.dylib in Frameworks */,
+				7A7100000000000000000010 /* libswscale.10.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A720000000000000000000F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7200000000000000000009 /* libavformat.63.dylib in Frameworks */,
+				7A720000000000000000000A /* libavcodec.63.dylib in Frameworks */,
+				7A720000000000000000000B /* libavutil.61.dylib in Frameworks */,
+				7A720000000000000000000C /* libswscale.10.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1932,6 +2000,8 @@
 				515B5E592A579782001FCD49 /* iina-plugin.xcconfig */,
 				496498882919E47900CD61A5 /* iina.xcconfig */,
 				4964988E2919E47900CD61A5 /* OpenInIINA.xcconfig */,
+				7A7100000000000000000009 /* RawThumbnail.xcconfig */,
+				7A7200000000000000000005 /* RawPreview.xcconfig */,
 				4964988A2919E47900CD61A5 /* Shared.xcconfig */,
 				4964988C2919E47900CD61A5 /* Debug.xcconfig */,
 				4964988D2919E47900CD61A5 /* Release.xcconfig */,
@@ -2385,6 +2455,9 @@
 				E3DE8DCB1FD8166A0021921C /* iina-cli */,
 				E38558882A484A2D0083772D /* iina-plugin */,
 				49542976216C34950058F680 /* OpenInIINA */,
+				7A710000000000000000001D /* RawThumbnail */,
+				7A710000000000000000001E /* RawFrameGrabber */,
+				7A7200000000000000000019 /* RawPreview */,
 				84EB1ED71D2F51D3004FA5A1 /* Products */,
 				8461BA641E42344D008BB852 /* Executables */,
 				848290731D95978100C3C76C /* Frameworks */,
@@ -2400,6 +2473,8 @@
 				84EB1ED61D2F51D3004FA5A1 /* IINA RAW.app */,
 				E3DE8DCA1FD8166A0021921C /* iina-cli */,
 				49542973216C34950058F680 /* OpenInIINA.appex */,
+				7A7100000000000000000004 /* RawThumbnail.appex */,
+				7A7200000000000000000004 /* RawPreview.appex */,
 				E38558872A484A2D0083772D /* iina-plugin */,
 			);
 			name = Products;
@@ -2596,6 +2671,37 @@
 			path = "iina-cli";
 			sourceTree = "<group>";
 		};
+		7A710000000000000000001D /* RawThumbnail */ = {
+			isa = PBXGroup;
+			children = (
+				7A7100000000000000000001 /* ThumbnailProvider.swift */,
+				7A7100000000000000000002 /* Info.plist */,
+				7A7100000000000000000003 /* RawThumbnail.entitlements */,
+			);
+			path = RawThumbnail;
+			sourceTree = "<group>";
+		};
+		7A710000000000000000001E /* RawFrameGrabber */ = {
+			isa = PBXGroup;
+			children = (
+				7A7100000000000000000005 /* RawFrameGrabber.swift */,
+				7A7100000000000000000006 /* rawframe.c */,
+				7A7100000000000000000007 /* rawframe.h */,
+				7A7100000000000000000008 /* RawFrameGrabber-Bridging-Header.h */,
+			);
+			path = RawFrameGrabber;
+			sourceTree = "<group>";
+		};
+		7A7200000000000000000019 /* RawPreview */ = {
+			isa = PBXGroup;
+			children = (
+				7A7200000000000000000001 /* PreviewViewController.swift */,
+				7A7200000000000000000002 /* Info.plist */,
+				7A7200000000000000000003 /* RawPreview.entitlements */,
+			);
+			path = RawPreview;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2614,6 +2720,40 @@
 			name = OpenInIINA;
 			productName = OpenInIINA;
 			productReference = 49542973216C34950058F680 /* OpenInIINA.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		7A7100000000000000000015 /* RawThumbnail */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A7100000000000000000016 /* Build configuration list for PBXNativeTarget "RawThumbnail" */;
+			buildPhases = (
+				7A7100000000000000000012 /* Sources */,
+				7A7100000000000000000013 /* Frameworks */,
+				7A7100000000000000000014 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RawThumbnail;
+			productName = RawThumbnail;
+			productReference = 7A7100000000000000000004 /* RawThumbnail.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		7A7200000000000000000011 /* RawPreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A7200000000000000000012 /* Build configuration list for PBXNativeTarget "RawPreview" */;
+			buildPhases = (
+				7A720000000000000000000E /* Sources */,
+				7A720000000000000000000F /* Frameworks */,
+				7A7200000000000000000010 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RawPreview;
+			productName = RawPreview;
+			productReference = 7A7200000000000000000004 /* RawPreview.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		84EB1ED51D2F51D3004FA5A1 /* iina */ = {
@@ -2638,6 +2778,8 @@
 				497747EE20D287C1004B243A /* PBXTargetDependency */,
 				5180D7792C17DB0D00CC9C1C /* PBXTargetDependency */,
 				49542985216C34950058F680 /* PBXTargetDependency */,
+				7A710000000000000000001C /* PBXTargetDependency */,
+				7A7200000000000000000018 /* PBXTargetDependency */,
 			);
 			name = iina;
 			packageProductDependencies = (
@@ -2775,6 +2917,8 @@
 				E3DE8DC91FD8166A0021921C /* iina-cli */,
 				E38558862A484A2D0083772D /* iina-plugin */,
 				49542972216C34950058F680 /* OpenInIINA */,
+				7A7100000000000000000015 /* RawThumbnail */,
+				7A7200000000000000000011 /* RawPreview */,
 			);
 		};
 /* End PBXProject section */
@@ -2835,6 +2979,20 @@
 				8418A2F5213F5791003166AC /* OpenURLWindowController.xib in Resources */,
 				8400D5DE1E1AB32A006785F5 /* PrefGeneralViewController.xib in Resources */,
 				8400D5C61E1AB2F1006785F5 /* MainWindowController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A7100000000000000000014 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A7200000000000000000010 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3153,6 +3311,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A7100000000000000000012 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A710000000000000000000A /* ThumbnailProvider.swift in Sources */,
+				7A710000000000000000000B /* RawFrameGrabber.swift in Sources */,
+				7A710000000000000000000C /* rawframe.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A720000000000000000000E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7200000000000000000006 /* PreviewViewController.swift in Sources */,
+				7A7200000000000000000007 /* RawFrameGrabber.swift in Sources */,
+				7A7200000000000000000008 /* rawframe.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3170,6 +3348,16 @@
 			isa = PBXTargetDependency;
 			target = E38558862A484A2D0083772D /* iina-plugin */;
 			targetProxy = 5180D7782C17DB0D00CC9C1C /* PBXContainerItemProxy */;
+		};
+		7A710000000000000000001C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A7100000000000000000015 /* RawThumbnail */;
+			targetProxy = 7A710000000000000000001B /* PBXContainerItemProxy */;
+		};
+		7A7200000000000000000018 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A7200000000000000000011 /* RawPreview */;
+			targetProxy = 7A7200000000000000000017 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4733,6 +4921,70 @@
 			};
 			name = Release;
 		};
+		7A7100000000000000000017 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7100000000000000000009 /* RawThumbnail.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Debug;
+		};
+		7A7100000000000000000018 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7100000000000000000009 /* RawThumbnail.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Release;
+		};
+		7A7100000000000000000019 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7100000000000000000009 /* RawThumbnail.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Beta;
+		};
+		7A710000000000000000001A /* Nightly */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7100000000000000000009 /* RawThumbnail.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Nightly;
+		};
+		7A7200000000000000000013 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7200000000000000000005 /* RawPreview.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Debug;
+		};
+		7A7200000000000000000014 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7200000000000000000005 /* RawPreview.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Release;
+		};
+		7A7200000000000000000015 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7200000000000000000005 /* RawPreview.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Beta;
+		};
+		7A7200000000000000000016 /* Nightly */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A7200000000000000000005 /* RawPreview.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+			};
+			name = Nightly;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4787,6 +5039,28 @@
 				E3DE8DCF1FD8166A0021921C /* Release */,
 				51A0F0F429FA2C65000130CF /* Beta */,
 				51537C7029FA25D000F9A472 /* Nightly */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A7100000000000000000016 /* Build configuration list for PBXNativeTarget "RawThumbnail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A7100000000000000000017 /* Debug */,
+				7A7100000000000000000018 /* Release */,
+				7A7100000000000000000019 /* Beta */,
+				7A710000000000000000001A /* Nightly */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A7200000000000000000012 /* Build configuration list for PBXNativeTarget "RawPreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A7200000000000000000013 /* Debug */,
+				7A7200000000000000000014 /* Release */,
+				7A7200000000000000000015 /* Beta */,
+				7A7200000000000000000016 /* Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -207,16 +207,11 @@ return -1;\
 
   // Create a sws context for converting color space and resizing
   CHECK(pCodecCtx->pix_fmt != AV_PIX_FMT_NONE, @"Pixel format is none")
-  // For tico_raw the context is built from the first decoded frame: the codec parameters say
-  // full-size Bayer, but the frames are the half-size GBRP16 view.
+  // The scaler is built from each decoded frame's own width, height and pixel format (see
+  // sws_getCachedContext in the loop): for tico_raw the codec parameters say full-size Bayer, but
+  // the frames are the half-size GBRP16 view, and a damaged or crafted file can change the size
+  // or format from one frame to the next. A scaler built for other values reads out of bounds.
   struct SwsContext *sws_ctx = NULL;
-  int swsSrcHeight = pCodecCtx->height;
-  if (!isRawView) {
-    sws_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
-                             pFrameRGB->width, pFrameRGB->height, pFrameRGB->format,
-                             SWS_BILINEAR,
-                             NULL, NULL, NULL);
-  }
 
   // Get duration and interval
   int64_t duration = av_rescale_q(pFormatCtx->duration, AV_TIME_BASE_Q, pVideoStream->time_base);
@@ -273,20 +268,21 @@ return -1;\
           if (isRawView && sws_ctx == NULL) {
             LOG_DEBUG(@"Thumbnail decoder frame: %dx%d %s", pFrame->width, pFrame->height,
                       av_get_pix_fmt_name((enum AVPixelFormat)pFrame->format));
-            sws_ctx = sws_getContext(pFrame->width, pFrame->height, (enum AVPixelFormat)pFrame->format,
-                                     pFrameRGB->width, pFrameRGB->height, pFrameRGB->format,
-                                     SWS_BILINEAR,
-                                     NULL, NULL, NULL);
-            CHECK_NOTNULL(sws_ctx, @"Cannot create scaler for decoded frame")
-            swsSrcHeight = pFrame->height;
           }
+          CHECK(pFrame->width > 0 && pFrame->height > 0 && pFrame->format >= 0 &&
+                sws_isSupportedInput((enum AVPixelFormat)pFrame->format), @"Decoded frame has no usable size or pixel format")
+          sws_ctx = sws_getCachedContext(sws_ctx, pFrame->width, pFrame->height, (enum AVPixelFormat)pFrame->format,
+                                         pFrameRGB->width, pFrameRGB->height, pFrameRGB->format,
+                                         SWS_BILINEAR,
+                                         NULL, NULL, NULL);
+          CHECK_NOTNULL(sws_ctx, @"Cannot create scaler for decoded frame")
 
           // Convert the frame to RGBA
           ret = sws_scale(sws_ctx,
                           (const uint8_t* const *)pFrame->data,
                           pFrame->linesize,
                           0,
-                          swsSrcHeight,
+                          pFrame->height,
                           pFrameRGB->data,
                           pFrameRGB->linesize);
           CHECK_SUCCESS(ret, @"Cannot convert frame")

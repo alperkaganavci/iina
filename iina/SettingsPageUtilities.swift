@@ -218,6 +218,9 @@ fileprivate class SetAsDefaultSheetWindow: NSWindow {
 
     let utiChecked = [
       "public.movie": videoCheckBox.state == .on,
+      // IINA RAW: the R3D and NEV types do not conform to public.movie (see Info.plist).
+      "com.alperkaganavci.r3d": videoCheckBox.state == .on,
+      "com.alperkaganavci.nev": videoCheckBox.state == .on,
       "public.audio": audioCheckBox.state == .on,
       "public.text": playListCheckBox.state == .on
     ]
@@ -234,7 +237,7 @@ fileprivate class SetAsDefaultSheetWindow: NSWindow {
       }
 
       // make sure that `conformsTo` contains a checked UTI type
-      guard utiChecked.map({ (uti, checked) in checked && conformsTo.contains(uti) }).contains(true) else {
+      guard utiChecked.map({ (uti, checked) in checked && (conformsTo.contains(uti) || identifier == uti) }).contains(true) else {
         continue
       }
 

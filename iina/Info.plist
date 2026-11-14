@@ -5,6 +5,10 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_other_v</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>R3D clip</string>
 			<key>CFBundleTypeRole</key>
@@ -23,6 +27,10 @@
 			<false/>
 		</dict>
 		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_other_v</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>NEV clip</string>
 			<key>CFBundleTypeRole</key>
@@ -75,9 +83,11 @@
 			<string>com.alperkaganavci.r3d</string>
 			<key>UTTypeDescription</key>
 			<string>R3D clip</string>
+			<!-- Not public.movie: macOS sends every audiovisual type to its own secure thumbnail and preview extension, so a third-party Quick Look extension is never asked. -->
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.movie</string>
+				<string>public.data</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeTagSpecification</key>
 			<dict>
@@ -92,9 +102,11 @@
 			<string>com.alperkaganavci.nev</string>
 			<key>UTTypeDescription</key>
 			<string>NEV clip</string>
+			<!-- Not public.movie: macOS sends every audiovisual type to its own secure thumbnail and preview extension, so a third-party Quick Look extension is never asked. -->
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.movie</string>
+				<string>public.data</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeTagSpecification</key>
 			<dict>

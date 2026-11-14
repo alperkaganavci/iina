@@ -1,0 +1,20 @@
+//
+//  RawThumbnail.xcconfig
+//  iina
+//
+//  IINA RAW: Quick Look thumbnail extension. It uses the dylibs that are already in the app
+//  (Contents/Frameworks) through its run path; no second set of libraries is copied.
+//
+
+CODE_SIGN_ENTITLEMENTS = $(TARGET_NAME)/$(PRODUCT_NAME).entitlements
+GENERATE_INFOPLIST_FILE = YES
+HEADER_SEARCH_PATHS = $(inherited) $(SRCROOT)/deps/include
+INFOPLIST_FILE = $(TARGET_NAME)/Info.plist
+// RawThumbnail.appex/Contents/MacOS/RawThumbnail -> IINA RAW.app/Contents/Frameworks
+LD_RUNPATH_SEARCH_PATHS = @executable_path/../../../../Frameworks
+LIBRARY_SEARCH_PATHS = $(inherited) $(SRCROOT)/deps/lib
+PRODUCT_BUNDLE_IDENTIFIER = com.alperkaganavci.iina-raw.thumbnail
+PRODUCT_MODULE_NAME = RawThumbnail
+PRODUCT_NAME = $(TARGET_NAME)
+SKIP_INSTALL = YES
+SWIFT_OBJC_BRIDGING_HEADER = RawFrameGrabber/RawFrameGrabber-Bridging-Header.h
