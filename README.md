@@ -1,3 +1,20 @@
+# IINA RAW (unofficial fork)
+
+IINA RAW is an unofficial fork of IINA 1.5.1. It plays Nikon raw clips in real time on Apple
+Silicon Macs: R3D NE (`.R3D`, Nikon ZR) and N-RAW (`.NEV`). It links an FFmpeg 9.0.2 build that has
+the `tico_raw` decoder, and it adds Finder thumbnails and a Quick Look preview that plays the clip.
+
+- It is **not affiliated with and not endorsed by the IINA project.** Do not report problems with
+  this fork to the IINA project.
+- It is a separate app: its own name, bundle id (`com.alperkaganavci.iina-raw`) and settings. It does not
+  change stock IINA. It never checks for updates, and it opens only `.R3D` and `.NEV` files.
+- This fork lives on the branch `iina-raw`. How to build and install it: see
+  [alperkaganavci/nikon-raw-playback](https://github.com/alperkaganavci/nikon-raw-playback)
+  (`build/README.md`).
+- Licence: GPL-3.0, the same as IINA (see `LICENSE`). The text below is the unchanged README of IINA.
+
+---
+
 <p align="center">
 <img height="256" src="https://iina.io/img/icon.png">
 </p>
