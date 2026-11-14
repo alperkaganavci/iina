@@ -1,13 +1,40 @@
 # IINA RAW (unofficial fork)
 
-IINA RAW is an unofficial fork of IINA 1.5.1. It plays Nikon raw clips in real time on Apple
-Silicon Macs: R3D NE (`.R3D`, Nikon ZR) and N-RAW (`.NEV`). It links an FFmpeg 9.0.2 build that has
-the `tico_raw` decoder, and it adds Finder thumbnails and a Quick Look preview that plays the clip.
+**Play Nikon raw video clips on a Mac in real time.** IINA RAW is an unofficial fork of
+[IINA](https://github.com/iina/iina) 1.5.1 for Apple Silicon Macs.
+
+![Platform: macOS, Apple Silicon](https://img.shields.io/badge/platform-macOS%20(Apple%20Silicon)-lightgrey)
+![Licence: GPL-3.0](https://img.shields.io/badge/licence-GPL--3.0-blue)
+![Unofficial](https://img.shields.io/badge/status-unofficial-orange)
+
+<!-- screenshot: IINA RAW playing a Nikon ZR clip, with a Finder window of clip thumbnails next to it -->
+
+## ⬇️ Download
+
+**[Get IINA RAW from the latest release](https://github.com/alperkaganavci/nikon-raw-playback/releases/latest)**
+(file: `IINA-RAW-1.5.1-raw.1-arm64.dmg`). The app is ad-hoc signed and not notarized, so macOS
+blocks the first launch. The install steps and the fix are in the
+[main README](https://github.com/alperkaganavci/nikon-raw-playback#-install). Install it only if
+you trust the source. You can also build it yourself.
+
+## ✨ What you get
+
+- 🎞️ **Real-time playback** of R3D NE (`.R3D`, Nikon ZR) and N-RAW (`.NEV`) clips. The app links
+  an FFmpeg 9.0.2 build that has the `tico_raw` decoder.
+- 🖼️ **Finder thumbnails** for these clips.
+- 👀 **A Quick Look preview** (space bar) that plays the clip.
+
+What is tested and what is not: see the
+[status table](https://github.com/alperkaganavci/nikon-raw-playback#-status).
+
+## 📌 Good to know
 
 - It is **not affiliated with and not endorsed by the IINA project.** Do not report problems with
   this fork to the IINA project.
 - It is a separate app: its own name, bundle id (`com.alperkaganavci.iina-raw`) and settings. It does not
-  change stock IINA. It never checks for updates, and it opens only `.R3D` and `.NEV` files.
+  change stock IINA. It opens only `.R3D` and `.NEV` files.
+- It has no auto-update. The IINA updater is turned off, so it can never replace the app with
+  stock IINA. New versions come as new GitHub releases.
 - This fork lives on the branch `iina-raw`. How to build and install it: see
   [alperkaganavci/nikon-raw-playback](https://github.com/alperkaganavci/nikon-raw-playback)
   (`build/README.md`).
