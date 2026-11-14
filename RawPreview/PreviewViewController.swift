@@ -43,34 +43,80 @@ private final class LoopCounter {
   func leave() { lock.lock(); count -= 1; lock.unlock() }
 }
 
-/// A view whose layer shows video frames.
+/// A layer-backed view whose layer shows video frames. The display layer always has the size of
+/// the view: it follows every resize (frame change, layout) and the screen scale.
 private final class VideoView: NSView {
   let displayLayer = AVSampleBufferDisplayLayer()
 
   override init(frame: NSRect) {
     super.init(frame: frame)
     wantsLayer = true
-    layer = CALayer()
+    layerContentsRedrawPolicy = .duringViewResize
     layer?.backgroundColor = NSColor.black.cgColor
+    layer?.masksToBounds = true
     displayLayer.videoGravity = .resizeAspect
     displayLayer.backgroundColor = NSColor.black.cgColor
     layer?.addSublayer(displayLayer)
+    fitDisplayLayer()
   }
 
   required init?(coder: NSCoder) { fatalError("not used") }
 
-  override func layout() {
-    super.layout()
+  private func fitDisplayLayer() {
     CATransaction.begin()
     CATransaction.setDisableActions(true)
     displayLayer.frame = bounds
+    displayLayer.contentsScale = window?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 2
     CATransaction.commit()
+  }
+
+  override func setFrameSize(_ newSize: NSSize) {
+    super.setFrameSize(newSize)
+    fitDisplayLayer()
+  }
+
+  override func layout() {
+    super.layout()
+    fitDisplayLayer()
+  }
+
+  override func viewDidChangeBackingProperties() {
+    super.viewDidChangeBackingProperties()
+    fitDisplayLayer()
+  }
+
+  override func viewDidMoveToWindow() {
+    super.viewDidMoveToWindow()
+    fitDisplayLayer()
+  }
+}
+
+/// The picture view: its size comes from the layout, never from the picture (an image view
+/// reports the picture's size as its wanted size, and a big still frame must not make the
+/// preview bigger than its window).
+private final class StillImageView: NSImageView {
+  override var intrinsicContentSize: NSSize { NSSize(width: NSView.noIntrinsicMetric, height: NSView.noIntrinsicMetric) }
+}
+
+/// The root view of the preview. It follows the host's size (autoresizing) and lays out its
+/// subviews by hand on every size change. No Auto Layout constraint fixes a size.
+private final class PreviewRootView: NSView {
+  var onResize: (() -> Void)?
+
+  override func setFrameSize(_ newSize: NSSize) {
+    super.setFrameSize(newSize)
+    onResize?()
+  }
+
+  override func layout() {
+    super.layout()
+    onResize?()
   }
 }
 
 class PreviewViewController: NSViewController, QLPreviewingController {
 
-  private let imageView = NSImageView()
+  private let imageView = StillImageView()
   private let videoView = VideoView(frame: .zero)
   private var stopFlag: StopFlag?
   private var lastFramesShown = 0
@@ -85,43 +131,73 @@ class PreviewViewController: NSViewController, QLPreviewingController {
   private let playbackQueue = DispatchQueue(label: "com.alperkaganavci.iina-raw.preview.playback", qos: .userInitiated)
   private let infoLabel = NSTextField(labelWithString: "")
   private static let infoHeight: CGFloat = 32
+  /// The fields of the info line; the label shows as many of them, from the start, as fit.
+  private var infoFields: [String] = []
 
   override func loadView() {
-    let root = NSView(frame: NSRect(x: 0, y: 0, width: 960, height: 572))
+    // 960 x 572 is only the first size; the host sets the real one and the view follows it.
+    let root = PreviewRootView(frame: NSRect(x: 0, y: 0, width: 960, height: 572))
+    root.autoresizingMask = [.width, .height]
     root.wantsLayer = true
     root.layer?.backgroundColor = NSColor.black.cgColor
 
     imageView.imageScaling = .scaleProportionallyUpOrDown
     imageView.imageAlignment = .alignCenter
-    imageView.translatesAutoresizingMaskIntoConstraints = false
 
     infoLabel.textColor = NSColor(white: 0.85, alpha: 1)
     infoLabel.font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
     infoLabel.alignment = .center
     infoLabel.lineBreakMode = .byTruncatingTail
-    infoLabel.translatesAutoresizingMaskIntoConstraints = false
 
-    videoView.translatesAutoresizingMaskIntoConstraints = false
     videoView.isHidden = true
 
     root.addSubview(imageView)
     root.addSubview(videoView)
     root.addSubview(infoLabel)
-    NSLayoutConstraint.activate([
-      videoView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-      videoView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-      videoView.topAnchor.constraint(equalTo: imageView.topAnchor),
-      videoView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-      infoLabel.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 12),
-      infoLabel.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -12),
-      infoLabel.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -8),
-      infoLabel.heightAnchor.constraint(equalToConstant: Self.infoHeight - 8),
-      imageView.leadingAnchor.constraint(equalTo: root.leadingAnchor),
-      imageView.trailingAnchor.constraint(equalTo: root.trailingAnchor),
-      imageView.topAnchor.constraint(equalTo: root.topAnchor),
-      imageView.bottomAnchor.constraint(equalTo: infoLabel.topAnchor, constant: -4),
-    ])
+    root.onResize = { [weak self] in self?.layoutContent() }
     view = root
+    layoutContent()
+  }
+
+  override func viewDidLayout() {
+    super.viewDidLayout()
+    layoutContent()
+  }
+
+  /// Picture and video fill the view above the info line; the info line is at the bottom.
+  /// Everything lies inside the view's bounds, whatever size the host gives it.
+  private func layoutContent() {
+    guard isViewLoaded else { return }
+    let bounds = view.bounds
+    let labelY = min(8, bounds.height)
+    let labelHeight = max(0, min(Self.infoHeight - 8, bounds.height - labelY))
+    infoLabel.frame = NSRect(x: 12, y: labelY, width: max(0, bounds.width - 24), height: labelHeight)
+    let pictureY = min(labelY + labelHeight + 4, bounds.height)
+    let picture = NSRect(x: 0, y: pictureY, width: bounds.width, height: max(0, bounds.height - pictureY))
+    imageView.frame = picture
+    videoView.frame = picture
+    fitInfoLine()
+  }
+
+  private func setInfoFields(_ fields: [String]) {
+    infoFields = fields
+    fitInfoLine()
+  }
+
+  /// Show the longest start of the info line that fits the label: when the line is too long,
+  /// drop fields from the end ("TICO RAW" first, then ISO, and so on), never part of a field.
+  private func fitInfoLine() {
+    let font = infoLabel.font ?? NSFont.systemFont(ofSize: 13)
+    let available = infoLabel.frame.width - 6  // the label's text cell keeps a small margin
+    var text = infoFields.joined(separator: " \u{00B7} ")
+    var count = infoFields.count
+    while count > 1 {
+      let width = NSAttributedString(string: text, attributes: [.font: font]).size().width.rounded(.up)
+      if width <= available { break }
+      count -= 1
+      text = infoFields.prefix(count).joined(separator: " \u{00B7} ")
+    }
+    if infoLabel.stringValue != text { infoLabel.stringValue = text }
   }
 
   func preparePreviewOfFile(at url: URL, completionHandler handler: @escaping (Error?) -> Void) {
@@ -141,7 +217,7 @@ class PreviewViewController: NSViewController, QLPreviewingController {
     closed = false
     stopPlayback()
     imageView.image = nil
-    infoLabel.stringValue = ""
+    setInfoFields([])
     currentURL = url
 
     // Decode off the main thread; the handler may be called on any thread, after the view is set.
@@ -161,8 +237,9 @@ class PreviewViewController: NSViewController, QLPreviewingController {
         case .success(let (cgImage, info)):
           let size = NSSize(width: cgImage.width, height: cgImage.height)
           self.imageView.image = NSImage(cgImage: cgImage, size: size)
-          self.infoLabel.stringValue = info.previewLine
-          // Window size: the frame's aspect at 960 points wide, plus the info line.
+          self.setInfoFields(info.previewFields)
+          // Window size hint (the host decides): the frame's aspect at 960 points wide, plus the info line.
+          // The layout never depends on it: the view follows whatever size the host gives it.
           let width: CGFloat = 960
           self.preferredContentSize = NSSize(width: width, height: (width * size.height / size.width).rounded() + Self.infoHeight)
           handler(nil)
@@ -210,6 +287,27 @@ class PreviewViewController: NSViewController, QLPreviewingController {
   /// Results of older requests (or of a closed preview) that were dropped.
   var playbackDroppedCompletions: Int { droppedCompletions }
   var playbackPaused: Bool { stopFlag?.isPaused ?? false }
+
+  /// Frames and texts of the views (test harness only).
+  struct LayoutSnapshot {
+    var rootBounds: CGRect
+    var imageFrame: CGRect
+    var videoFrame: CGRect
+    var displayLayerFrame: CGRect
+    var displayLayerBounds: CGRect
+    var infoFrame: CGRect
+    var infoText: String
+    var infoTextWidth: CGFloat
+    var imageHidden: Bool
+    var videoHidden: Bool
+  }
+  var layoutSnapshot: LayoutSnapshot {
+    LayoutSnapshot(rootBounds: view.bounds, imageFrame: imageView.frame, videoFrame: videoView.frame,
+                   displayLayerFrame: videoView.displayLayer.frame, displayLayerBounds: videoView.displayLayer.bounds,
+                   infoFrame: infoLabel.frame, infoText: infoLabel.stringValue,
+                   infoTextWidth: infoLabel.attributedStringValue.size().width,
+                   imageHidden: imageView.isHidden, videoHidden: videoView.isHidden)
+  }
 
   /// Show the still picture again: no video frame stays on the layer.
   private func resetDisplay() {

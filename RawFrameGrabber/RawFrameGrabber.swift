@@ -118,17 +118,21 @@ extension RawClipInfo {
     return String(format: "%02d:%02d", total / 60, total % 60)
   }
 
-  /// One line for the Quick Look preview: `3030×1705 · 25 fps · 00:33 · ISO 6400 · TICO RAW`.
-  /// Fields that are missing, or damaged, are left out.
-  var previewLine: String {
+  /// The fields of the preview's info line, in order: `3030×1705`, `25 fps`, `00:33`, `ISO 6400`,
+  /// `TICO RAW`. Fields that are missing, or damaged, are left out. The preview drops fields
+  /// from the end when the line does not fit its window.
+  var previewFields: [String] {
     var parts: [String] = []
     if width > 0 && height > 0 { parts.append("\(width)\u{00D7}\(height)") }
     if let text = RawClipInfo.formatFps(fps) { parts.append("\(text) fps") }
     if let text = RawClipInfo.formatDuration(durationSeconds) { parts.append(text) }
     if let iso = iso, iso >= 0 { parts.append("ISO \(iso)") }
     parts.append("TICO RAW")
-    return parts.joined(separator: " \u{00B7} ")
+    return parts
   }
+
+  /// One line for the Quick Look preview: `3030×1705 · 25 fps · 00:33 · ISO 6400 · TICO RAW`.
+  var previewLine: String { previewFields.joined(separator: " \u{00B7} ") }
 }
 
 /// Playback of a clip for the Quick Look preview: frame after frame at the half view, scaled
