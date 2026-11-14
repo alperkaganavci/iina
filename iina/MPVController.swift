@@ -591,6 +591,11 @@ class MPVController: NSObject {
       }
     }
 
+    // IINA RAW: built-in default decoder options for Nikon raw clips (.R3D, .NEV). They are set
+    // before the user's own advanced options below, so a user "vd-lavc-o" option replaces them.
+    // vd-lavc-threads is the videoThreads preference, whose default is 12 (see Preference.swift).
+    chkErr(setOptionString(MPVOption.Video.vdLavcO, AppData.rawViewDecoderOptions, level: .verbose))
+
     // Set user defined options.
     if Preference.bool(for: .enableAdvancedSettings) {
       if let userOptions = Preference.value(for: .userOptions) as? [[String]] {

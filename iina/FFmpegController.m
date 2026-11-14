@@ -161,7 +161,19 @@ return -1;\
     return -1;
   }
 
+  // IINA RAW: the tico_raw decoder gives Bayer data at full size by default. Ask for the
+  // half-size Rec.709 view (the same options as playback uses) and slice threads, so a
+  // thumbnail is a normal picture and does not cost 15 s of one core per file.
+  const BOOL isRawView = (pCodec->id == AV_CODEC_ID_TICO_RAW);
+  if (isRawView) {
+    av_dict_set(&optionsDict, "view", "rec709", 0);
+    av_dict_set(&optionsDict, "view_size", "half", 0);
+    av_dict_set(&optionsDict, "thread_type", "slice", 0);
+    pCodecCtx->thread_count = 4;
+  }
+
   ret = avcodec_open2(pCodecCtx, pCodec, &optionsDict);
+  av_dict_free(&optionsDict);
   CHECK_SUCCESS(ret, @"Cannot open codec")
 
   // Allocate video frame
@@ -195,10 +207,16 @@ return -1;\
 
   // Create a sws context for converting color space and resizing
   CHECK(pCodecCtx->pix_fmt != AV_PIX_FMT_NONE, @"Pixel format is none")
-  struct SwsContext *sws_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
-                                              pFrameRGB->width, pFrameRGB->height, pFrameRGB->format,
-                                              SWS_BILINEAR,
-                                              NULL, NULL, NULL);
+  // For tico_raw the context is built from the first decoded frame: the codec parameters say
+  // full-size Bayer, but the frames are the half-size GBRP16 view.
+  struct SwsContext *sws_ctx = NULL;
+  int swsSrcHeight = pCodecCtx->height;
+  if (!isRawView) {
+    sws_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
+                             pFrameRGB->width, pFrameRGB->height, pFrameRGB->format,
+                             SWS_BILINEAR,
+                             NULL, NULL, NULL);
+  }
 
   // Get duration and interval
   int64_t duration = av_rescale_q(pFormatCtx->duration, AV_TIME_BASE_Q, pVideoStream->time_base);
@@ -252,12 +270,23 @@ return -1;\
             [_addedTimestamps addObject:currentTimeStamp];
           }
 
+          if (isRawView && sws_ctx == NULL) {
+            LOG_DEBUG(@"Thumbnail decoder frame: %dx%d %s", pFrame->width, pFrame->height,
+                      av_get_pix_fmt_name((enum AVPixelFormat)pFrame->format));
+            sws_ctx = sws_getContext(pFrame->width, pFrame->height, (enum AVPixelFormat)pFrame->format,
+                                     pFrameRGB->width, pFrameRGB->height, pFrameRGB->format,
+                                     SWS_BILINEAR,
+                                     NULL, NULL, NULL);
+            CHECK_NOTNULL(sws_ctx, @"Cannot create scaler for decoded frame")
+            swsSrcHeight = pFrame->height;
+          }
+
           // Convert the frame to RGBA
           ret = sws_scale(sws_ctx,
                           (const uint8_t* const *)pFrame->data,
                           pFrame->linesize,
                           0,
-                          pCodecCtx->height,
+                          swsSrcHeight,
                           pFrameRGB->data,
                           pFrameRGB->linesize);
           CHECK_SUCCESS(ret, @"Cannot convert frame")

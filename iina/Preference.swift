@@ -1146,7 +1146,8 @@ struct Preference {
     .sidebarPlaylistDisplayAtLeading: true,
     .sidebarPluginsDisplayAtLeading: true,
 
-    .videoThreads: 0,
+    // IINA RAW: 12 decoder threads by default (tico_raw slice threading); 0 would be "auto".
+    .videoThreads: 12,
     .hardwareDecoder: HardwareDecoderOption.auto.rawValue,
     .forceDedicatedGPU: false,
     .loadIccProfile: true,

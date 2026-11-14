@@ -43,6 +43,11 @@ struct AppData {
 
   static let encodings = CharEncoding.list
 
+  /// IINA RAW: default value of the mpv option `vd-lavc-o`. `view=rec709,view_size=half` makes the
+  /// `tico_raw` decoder output a half-size Rec.709 picture, and `thread_type=slice` selects slice
+  /// threading.
+  static let rawViewDecoderOptions = "view=rec709,view_size=half,thread_type=slice"
+
   static let userInputConfFolder = "input_conf"
   static let watchLaterFolder = "watch_later"
   static let pluginsFolder = "plugins"

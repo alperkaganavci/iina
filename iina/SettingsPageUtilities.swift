@@ -284,8 +284,8 @@ fileprivate class BrowserExtensionView: SettingsAccessory.Base {
 
     let chromeBtn = linkButton(.text_Chrome, #selector(extChromeBtnAction))
     let firefoxBtn = linkButton(.text_Firefox, #selector(extFirefoxBtnAction))
-    let safariBtn = linkButton(.text_Safari, #selector(extSafariBtnAction), ["safari"])
-    let stackView = ui.hStack(safariBtn, chromeBtn, firefoxBtn)
+    // IINA RAW: the Safari extension is not embedded, so its settings button is not shown.
+    let stackView = ui.hStack(chromeBtn, firefoxBtn)
     view.addSubview(stackView)
     stackView.padding(.top(0), .bottom(16), .leading(SettingsSubList.indent), .trailing(8))
   }

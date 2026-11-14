@@ -356,7 +356,7 @@ func unlinkPlugin(_ args: ArraySlice<String>) -> Bool {
 
 fileprivate var appSupportDir: URL {
   let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
-  let bundleID = Bundle.main.bundleIdentifier ?? "com.colliderli.iina"
+  let bundleID = Bundle.main.bundleIdentifier ?? "com.alperkaganavci.iina-raw"
   let url = appSupportPath.first!.appendingPathComponent(bundleID).appendingPathComponent("plugins")
   do {
     try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)

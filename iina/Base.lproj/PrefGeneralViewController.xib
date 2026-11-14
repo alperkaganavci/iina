@@ -133,7 +133,7 @@
                         <binding destination="IBP-Mz-Maa" name="value" keyPath="values.blackOutMonitor" id="LYr-PX-pOF"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tUl-6f-ClP">
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tUl-6f-ClP">
                     <rect key="frame" x="120" y="8" width="153" height="16"/>
                     <buttonCell key="cell" type="check" title="Receive beta updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="f0j-Dn-cxt">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
