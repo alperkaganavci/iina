@@ -19,7 +19,7 @@ you trust the source. You can also build it yourself.
 
 ## ✨ What you get
 
-- 🎞️ **Real-time playback** of R3D NE (`.R3D`, Nikon ZR) and N-RAW (`.NEV`) clips. The app links
+- 🎞️ **Real-time playback** of R3D NE (`.R3D`, Nikon ZR) clips. N-RAW (`.NEV`) is tested only with a rewrapped copy. The app links
   an FFmpeg 9.0.2 build that has the `tico_raw` decoder.
 - 🖼️ **Finder thumbnails** for these clips.
 - 👀 **A Quick Look preview** (space bar) that plays the clip.
