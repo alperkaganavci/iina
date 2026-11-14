@@ -116,3 +116,9 @@ browser/Firefox_Open_In_IINA/*
 deps/executable/youtube-dl
 deps/plugins
 
+
+# IINA RAW: libraries and executables come from the deps build (see build/README.md in
+# https://github.com/alperkaganavci/nikon-raw-playback), not from git
+deps/lib/
+deps/executable/
+deps/plugins/

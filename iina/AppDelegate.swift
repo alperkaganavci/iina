@@ -192,8 +192,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
   // MARK: - SPUUpdaterDelegate
   @IBOutlet var updaterController: SPUStandardUpdaterController!
 
+  // IINA RAW never checks for or installs updates: there is no feed URL, and Sparkle is told
+  // to refuse every update check.
   func feedURLString(for updater: SPUUpdater) -> String? {
-    return Preference.bool(for: .receiveBetaUpdate) ? AppData.appcastBetaLink : AppData.appcastLink
+    return nil
+  }
+
+  func updater(_ updater: SPUUpdater, mayPerform updateCheck: SPUUpdateCheck) throws {
+    throw NSError(domain: "com.alperkaganavci.iina-raw.updates", code: 1, userInfo: [
+      NSLocalizedDescriptionKey: "IINA RAW does not check for updates."])
   }
 
   // MARK: - App Delegate

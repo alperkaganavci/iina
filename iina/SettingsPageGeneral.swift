@@ -107,20 +107,7 @@ class SettingsPageGeneral: SettingsPage {
           .bindTo(.autoSwitchToMusicMode)
       }
 
-      SettingsList {
-        SettingsItem.SwitchWithPopupButton(title: .text_CheckForUpdates)
-          .image(name: "arrowshape.up.circle")
-          .bindSwitchToCustom {
-            $0.bind(.value, to: NSApplication.shared, withKeyPath: "delegate.updaterController.updater.automaticallyChecksForUpdates")
-          }
-          .bindPopupToCustom(type: Preference.SparkleInterval.self) {
-            $0.bind(.selectedTag, to: NSApplication.shared, withKeyPath: "delegate.updaterController.updater.updateCheckInterval")
-          }
-          .withDetailView {
-            SettingsItem.Switch()
-              .bindTo(.receiveBetaUpdate)
-          }
-      }
+      // IINA RAW: the "Check for Updates" setting is removed. IINA RAW never checks for updates.
     }
   }
 
